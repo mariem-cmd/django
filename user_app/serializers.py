@@ -2,6 +2,9 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import DeviceSession
 from django.contrib.auth import get_user_model
+from .models import ImageUpload
+
+
 
 # Custom User Signup Serializer
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -47,3 +50,12 @@ class AppUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'full_name', 'date_joined']
+
+
+
+class ImageUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageUpload  # ton modèle
+        fields = ['id', 'image', 'user']
+        read_only_fields = ['user']
+

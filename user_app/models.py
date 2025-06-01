@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, full_name, password=None, **extra_fields):
@@ -46,3 +47,16 @@ class DeviceSession(models.Model):
 
     def __str__(self):
         return f"{self.user.email} ({self.device_info})"
+    
+class ImageUpload(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(upload_to='uploads/')
+    processed_image = models.ImageField(upload_to='processed/', null=True, blank=True)  # ✅ Nouveau champ
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image {self.id} uploadée par {self.user.email}"

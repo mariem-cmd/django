@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-pkl&58e^0z%yzjj$q)rlmtgh&s(xrf2em0r4@rd=xvo2o48@l8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# liessent 
 ALLOWED_HOSTS = ['10.0.2.2', 'localhost', '127.0.0.1']
 
 
@@ -46,10 +46,12 @@ INSTALLED_APPS = [
 
 # -------------- Authentication settings --------------------#
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
+    ),
+    
 }
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # ✅ Ajouter ceci tout en haut
@@ -141,6 +143,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS += [
     "graphene_django",
+    
 ]
 
 
@@ -162,8 +165,28 @@ GRAPHQL_JWT = {
     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
 }
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Adresse Redis
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Adresse Redis
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# Utilisation de Redis comme broker
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mariembenabdallah020@gmail.com'
+EMAIL_HOST_PASSWORD = 'rbxu tevw oxqf uwij'  # app password généré
+DEFAULT_FROM_EMAIL = 'mariembenabdallah020@gmail.com'
+
+
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
