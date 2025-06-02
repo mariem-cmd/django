@@ -53,7 +53,7 @@ class UserSigninView(APIView):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-            expires_at = timezone.now() + timedelta(days=7)
+            expires_at = timezone.now() + timedelta(days=1)
             session, created = DeviceSession.objects.update_or_create(
                 user=user,
                 device_id=device_id,

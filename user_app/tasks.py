@@ -1,6 +1,9 @@
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
+from user_app.models import ImageUpload
+import cv2
+import os
 
 @shared_task
 def send_push_notification(email, message):
@@ -27,10 +30,7 @@ def send_push_notification(email, message):
     return result
  
 
-from celery import shared_task
-from user_app.models import ImageUpload
-import cv2
-import os
+
 @shared_task
 def process_image_ai(image_id):
     print("📸 Début du traitement AI de l'image...")
